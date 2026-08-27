@@ -9,7 +9,7 @@ int main() {
   init();
 
   while (!WindowShouldClose()) {
-
+    gameUpdate(); 
     gameDraw();
   }
 

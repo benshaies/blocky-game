@@ -6,22 +6,39 @@
 RenderTexture target;
 Vector2 mousePos = {0};
 
+//Player stuff
+Player player;
+
+//World stuff
+Rectangle tempGroundRec = {0, 570, 1280, 150};
+
 void gameInit() {
   ChangeDirectory(TextFormat("%s/..", GetApplicationDirectory()));
 
   InitWindow(GAME_WIDTH, GAME_HEIGHT, "blocky game");
   SetTargetFPS(60);
   target = LoadRenderTexture(GAME_WIDTH, GAME_HEIGHT);
+
+  playerInit(&player);
 }
 
-void gameUpdate() {}
+void gameUpdate() {
+  playerCollisions(&player, tempGroundRec);
+
+  playerUpdate(&player);
+}
 
 void gameDraw() {
   BeginTextureMode(target);
 
   ClearBackground(RAYWHITE);
 
-  DrawRectangle(500, 500, 50, 50, BLUE);
+  DrawRectangleRec(tempGroundRec, BROWN);
+
+
+  playerDraw(&player);
+  
+
 
   EndTextureMode();
 
