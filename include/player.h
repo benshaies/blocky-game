@@ -1,14 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#define PLAYER_GRAVITY 2.0f
-
+#define PLAYER_GRAVITY 1.25f
 
 #include <raylib.h>
 typedef struct{
   //Core
-  Vector2 pos;
-  Rectangle drawRec;
+  Rectangle rec;
   
   //Movement
   float movementSpeed;
@@ -22,9 +20,8 @@ typedef struct{
 
 void playerInit(Player *player);
 
-void playerCollisions(Player *player, Rectangle currentRec);
 
-void playerUpdate(Player *player);
+void playerUpdate(Player *player, Rectangle currentRec);
 
 
 void playerDraw(Player *player);

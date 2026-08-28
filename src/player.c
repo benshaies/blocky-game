@@ -1,75 +1,62 @@
 #include "../include/player.h"
-#include <raylib.h>
 #include "stdio.h"
+#include <raylib.h>
 
-void playerInit(Player *player){
-  player->pos = (Vector2 ) {500, 500};
-  player->drawRec = (Rectangle){player->pos.x, player->pos.y, 50, 75};
+void playerInit(Player *player) {
+  player->rec = (Rectangle){500, 500, 50, 75};
 
-  player->movementSpeed = 2.5f;
+  player->movementSpeed = 4.0f;
   player->onGround = false;
   player->isJumping = false;
 }
 
-void playerCollisions(Player *player, Rectangle currentRec){
+void playerCollisions(Player *player, Rectangle currentRec) {
 
-  if(CheckCollisionRecs(player->drawRec, currentRec)){
+  if (CheckCollisionRecs(player->rec, currentRec)) {
+
+    if (player->rec.y < currentRec.y) {
       
-    if(player->drawRec.y < currentRec.y){
-      Rectangle collisionRec = GetCollisionRec(player->drawRec, currentRec);
-
-      player->pos.y -= collisionRec.height;
+      player->rec.y = currentRec.y - player->rec.height;
       player->onGround = true;
       player->velocityY = 0;
-
     }
-
   }
-
 }
 
-void playerMovement(Player *player){
-  if(IsKeyDown(KEY_D)){
-    player->pos.x += player->movementSpeed;
-  }
-  else if(IsKeyDown(KEY_A)){
-    player->pos.x -= player->movementSpeed;
+void playerMovement(Player *player) {
+  if (IsKeyDown(KEY_D)) {
+    player->rec.x += player->movementSpeed;
+  } else if (IsKeyDown(KEY_A)) {
+    player->rec.x -= player->movementSpeed;
   }
 
-  if(IsKeyPressed(KEY_SPACE) && player->onGround){
-    player->velocityY = -25; 
+  if (IsKeyPressed(KEY_SPACE) && player->onGround) {
+    player->velocityY = -25;
     player->onGround = false;
-
   }
 
-  if(!player->onGround){
+  if (!player->onGround) {
     player->velocityY += PLAYER_GRAVITY;
+  } else {
   }
-  else{
-  }
 
-
-
-  player->pos.y += player->velocityY;
-
-  printf("\n%f", player->velocityY);
-
-  
- 
-}
-
-void playerUpdate(Player *player){
-
-   playerMovement(player);
-
-  //Update Rectangle
-  player->drawRec.x = player->pos.x;
-  player->drawRec.y = player->pos.y;
-  
+  player->rec.y += player->velocityY;
 
 }
 
-void playerDraw(Player *player){
-  DrawRectangleRec(player->drawRec, BLUE);
+void playerUpdate(Player *player, Rectangle currentRec) {
+
+  playerMovement(player);
+
+
+  playerCollisions(player, currentRec);
+
 }
+
+void playerDraw(Player *player) {
+  DrawRectangleRec(player->rec, BLUE); 
+}
+
+
+
 

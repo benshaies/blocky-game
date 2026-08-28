@@ -23,9 +23,8 @@ void gameInit() {
 }
 
 void gameUpdate() {
-  playerCollisions(&player, tempGroundRec);
 
-  playerUpdate(&player);
+  playerUpdate(&player, tempGroundRec);
 }
 
 void gameDraw() {
