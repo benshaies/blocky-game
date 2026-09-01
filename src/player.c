@@ -3,7 +3,7 @@
 #include <raylib.h>
 
 void playerInit(Player *player) {
-  player->rec = (Rectangle){500, 500, 50, 75};
+  player->rec = (Rectangle){500, 0, 50, 75};
 
   player->movementSpeed = 4.0f;
   player->onGround = false;
@@ -54,7 +54,7 @@ void playerUpdate(Player *player, Rectangle currentRec) {
 }
 
 void playerDraw(Player *player) {
-  DrawRectangleRec(player->rec, BLUE); 
+  DrawRectangleRec(player->rec, MAROON); 
 }
 
 
