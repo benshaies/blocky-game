@@ -1,9 +1,12 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+
 #define PLAYER_GRAVITY 1.25f
 
 #include <raylib.h>
+#include "world.h"
+
 typedef struct{
   //Core
   Rectangle rec;
@@ -21,7 +24,7 @@ typedef struct{
 void playerInit(Player *player);
 
 
-void playerUpdate(Player *player, Rectangle currentRec);
+void playerUpdate(Player *player, CollisionRecs collision);
 
 
 void playerDraw(Player *player);

@@ -5,15 +5,20 @@
 
 // MACROS
 #define TILE_SIZE 50
+#define COLLISION_TILES_NUM 2
 
 //Tile IDS
-#define SKY 0
+#define EMPTY -1 
 #define GRASS 1
 #define DIRT 2
 
+
+
+
+
 typedef struct {
-  Rectangle recs[6];
-  bool isCollisionRec[6];
+  Rectangle rec[6];
+  bool isEmpty[6];
 } CollisionRecs;
 
 
@@ -27,6 +32,8 @@ typedef struct {
   int rows;
   int cols;
 } World;
+
+void worldVarInit();
 
 CollisionRecs currentGroundRec(World world, Rectangle playerRec);
 

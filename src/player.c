@@ -10,17 +10,23 @@ void playerInit(Player *player) {
   player->isJumping = false;
 }
 
-void playerCollisions(Player *player, Rectangle currentRec) {
+void playerCollisions(Player *player, CollisionRecs collision) {
+  
+  for(int i = 0; i < 6; i++){
+    
+    if(!collision.isEmpty[i] && CheckCollisionRecs(player->rec, collision.rec[i])){
+      
+      Rectangle overlap = GetCollisionRec(player->rec, collision.rec[i]);
 
-  if (CheckCollisionRecs(player->rec, currentRec)) {
+      player->rec.x += overlap.width;
+      player->rec.y += overlap.height;
 
-    if (player->rec.y < currentRec.y) {
 
-      player->rec.y = currentRec.y - player->rec.height;
-      player->onGround = true;
-      player->velocityY = 0;
     }
   }
+
+
+
 }
 
 void playerMovement(Player *player) {
@@ -43,11 +49,11 @@ void playerMovement(Player *player) {
   player->rec.y += player->velocityY;
 }
 
-void playerUpdate(Player *player, Rectangle currentRec) {
+void playerUpdate(Player *player, CollisionRecs collision) {
 
   playerMovement(player);
 
-  playerCollisions(player, currentRec);
+  playerCollisions(player, collision);
 }
 
 void playerDraw(Player *player) { DrawRectangleRec(player->rec, MAROON); }

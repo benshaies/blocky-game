@@ -10,11 +10,15 @@ Vector2 mousePos = {0};
 
 //Player stuff
 Player player;
+CollisionRecs pCollisionRecs;
 
 //World stuff
 Color skyColor = {102, 191, 255, 255};
 Rectangle tempGroundRec = {0, 570, 1280, 150};
 World tempWorld;
+
+
+
 
 void gameInit() {
   ChangeDirectory(TextFormat("%s/..", GetApplicationDirectory()));
@@ -23,6 +27,7 @@ void gameInit() {
   SetTargetFPS(60);
   target = LoadRenderTexture(GAME_WIDTH, GAME_HEIGHT);
 
+  worldVarInit();
   playerInit(&player);
 
   tempWorld = worldGenerate(GAME_WIDTH/TILE_SIZE, GAME_HEIGHT/TILE_SIZE);
@@ -33,11 +38,11 @@ void gameInit() {
 
 void gameUpdate() {
   
-  Rectangle groundRec;  
+  Rectangle groundRec  = (Rectangle){0, 600, 2000, 100};
 
-  //playerUpdate(&player, groundRec);
+  pCollisionRecs =  currentGroundRec(tempWorld, player.rec);
 
-  
+  playerUpdate(&player, pCollisionRecs);
 
 }
 
@@ -47,9 +52,17 @@ void gameDraw() {
 
   ClearBackground(skyColor);
 
+
   worldDraw(tempWorld); 
 
   playerDraw(&player);
+
+ // Draw Collision Tiles
+  for(int i = 0; i < 6; i++){
+    if(!pCollisionRecs.isEmpty[i]){
+      DrawRectangleRec(pCollisionRecs.rec[i], RED);
+    }
+  }
 
 
   EndTextureMode();
