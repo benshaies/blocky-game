@@ -3,21 +3,37 @@
 #include "../sblib/include/sblib.h"
 #include <raylib.h>
 
-//MACROS
+// MACROS
 #define TILE_SIZE 50
 
-typedef struct{
-  SB_IntArray2D arr;
-}World;
+//Tile IDS
+#define SKY 0
+#define GRASS 1
+#define DIRT 2
 
-Rectangle currentGroundRec(World world, Rectangle playerRec);
+typedef struct {
+  Rectangle recs[6];
+  bool isCollisionRec[6];
+} CollisionRecs;
 
-World worldGenerate(int width, int hieght);
+
+typedef struct {
+  int value;
+} Tile;
+
+typedef struct {
+  Tile **tile;
+
+  int rows;
+  int cols;
+} World;
+
+CollisionRecs currentGroundRec(World world, Rectangle playerRec);
+
+World worldGenerate(int width, int height);
+
+void worldFree(World *world);
 
 void worldDraw(World currentWorld);
-
-
-
-
 
 #endif

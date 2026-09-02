@@ -33,10 +33,9 @@ void gameInit() {
 
 void gameUpdate() {
   
-    
-  Rectangle groundRec = currentGroundRec(tempWorld, player.rec);
+  Rectangle groundRec;  
 
-  playerUpdate(&player, groundRec);
+  //playerUpdate(&player, groundRec);
 
   
 

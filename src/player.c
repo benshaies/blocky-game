@@ -3,7 +3,7 @@
 #include <raylib.h>
 
 void playerInit(Player *player) {
-  player->rec = (Rectangle){500, 0, 50, 75};
+  player->rec = (Rectangle){500, 0, 50, 100};
 
   player->movementSpeed = 4.0f;
   player->onGround = false;
@@ -15,7 +15,7 @@ void playerCollisions(Player *player, Rectangle currentRec) {
   if (CheckCollisionRecs(player->rec, currentRec)) {
 
     if (player->rec.y < currentRec.y) {
-      
+
       player->rec.y = currentRec.y - player->rec.height;
       player->onGround = true;
       player->velocityY = 0;
@@ -41,22 +41,13 @@ void playerMovement(Player *player) {
   }
 
   player->rec.y += player->velocityY;
-
 }
 
 void playerUpdate(Player *player, Rectangle currentRec) {
 
   playerMovement(player);
 
-
   playerCollisions(player, currentRec);
-
 }
 
-void playerDraw(Player *player) {
-  DrawRectangleRec(player->rec, MAROON); 
-}
-
-
-
-
+void playerDraw(Player *player) { DrawRectangleRec(player->rec, MAROON); }
