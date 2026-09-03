@@ -11,22 +11,12 @@ void playerInit(Player *player) {
 }
 
 void playerCollisions(Player *player, CollisionRecs collision) {
-  
-  for(int i = 0; i < 6; i++){
-    
-    if(!collision.isEmpty[i] && CheckCollisionRecs(player->rec, collision.rec[i])){
-      
-      Rectangle overlap = GetCollisionRec(player->rec, collision.rec[i]);
 
-      player->rec.x += overlap.width;
-      player->rec.y += overlap.height;
+  for (int i = 0; i < 6; i++) {
 
 
-    }
+
   }
-
-
-
 }
 
 void playerMovement(Player *player) {
