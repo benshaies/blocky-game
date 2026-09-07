@@ -25,6 +25,10 @@ void playerCollisions(Player *player, CollisionRecs collision) {
         if(colRec.width > colRec.height){
           player->rec.y -= colRec.height;
         }
+        
+
+        
+
       }
     }
 

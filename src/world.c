@@ -90,6 +90,8 @@ World worldGenerate(int width, int height) {
     }
   }
 
+  world.tile[10][5].value = DIRT;
+
   return world;
 }
 
@@ -114,17 +116,17 @@ void worldDraw(World world) {
 
       switch (world.tile[y][x].value) {
       case EMPTY:
+          continue;
         break;
       case DIRT:
-        tileColor = BROWN;
+        DrawRectangle(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE,BROWN);
         break;
       case GRASS:
-        tileColor = DARKGREEN;
+        DrawRectangle(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE,DARKGREEN);
         break;
       }
+      
 
-      DrawRectangle(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE,
-                    tileColor);
     }
   }
 }
