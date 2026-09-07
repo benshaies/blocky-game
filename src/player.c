@@ -14,6 +14,21 @@ void playerCollisions(Player *player, CollisionRecs collision) {
 
   for (int i = 0; i < 6; i++) {
 
+    if(collision.isEmpty[i]){
+      continue;
+    }
+
+    else{
+      if(CheckCollisionRecs(player->rec, collision.rec[i])){
+        Rectangle colRec = GetCollisionRec(player->rec, collision.rec[i]);
+
+        if(colRec.width > colRec.height){
+          player->rec.y -= colRec.height;
+        }
+      }
+    }
+
+
 
 
   }
@@ -26,17 +41,24 @@ void playerMovement(Player *player) {
     player->rec.x -= player->movementSpeed;
   }
 
-  if (IsKeyPressed(KEY_SPACE) && player->onGround) {
-    player->velocityY = -25;
-    player->onGround = false;
+  if(IsKeyDown(KEY_S)){
+    player->rec.y += player->movementSpeed;
+  }
+  else if(IsKeyDown(KEY_W)){
+    player->rec.y -= player->movementSpeed;
   }
 
-  if (!player->onGround) {
-    player->velocityY += PLAYER_GRAVITY;
-  } else {
-  }
+  //if (IsKeyPressed(KEY_SPACE) && player->onGround) {
+  //  player->velocityY = -25;
+   // player->onGround = false;
+  //}
 
-  player->rec.y += player->velocityY;
+  //if (!player->onGround) {
+   // player->velocityY += PLAYER_GRAVITY;
+  //} else {
+  //}
+
+  //player->rec.y += player->velocityY;
 }
 
 void playerUpdate(Player *player, CollisionRecs collision) {
