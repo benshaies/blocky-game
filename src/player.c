@@ -15,26 +15,42 @@ void playerCollisions(Player *player, CollisionRecs collision) {
   for (int i = 0; i < 6; i++) {
 
     if(collision.isEmpty[i]){
+
+      // Botoom tile check, if the bottom tile is empty that means the player is not on the ground
+      if(i == 3){
+        player->onGround = false;
+      }
       continue;
     }
 
     else{
       if(CheckCollisionRecs(player->rec, collision.rec[i])){
         Rectangle colRec = GetCollisionRec(player->rec, collision.rec[i]);
-
-        if(colRec.width > colRec.height){
-          player->rec.y -= colRec.height;
+        
+        switch (i) {
+          case 0: //Top collision 
+            player->rec.y += colRec.height;
+            break;
+          case 1: // Right side 
+            player->rec.x -= colRec.width;
+           break;
+          case 2: // Right Side
+            player->rec.x -= colRec.width;
+            break;
+          case 3: // Bottom collision
+            player->rec.y -= colRec.height;
+            player->onGround = true;
+            break;
+          case 4: // Left side
+            player->rec.x += colRec.width;
+            break;
+          case 5: // Left Side
+            player->rec.x += colRec.width;
+            break;
+        
         }
-        
-
-        
-
       }
     }
-
-
-
-
   }
 }
 
@@ -45,24 +61,20 @@ void playerMovement(Player *player) {
     player->rec.x -= player->movementSpeed;
   }
 
-  if(IsKeyDown(KEY_S)){
-    player->rec.y += player->movementSpeed;
+  // Jumping code
+  if (IsKeyPressed(KEY_SPACE) && player->onGround) {
+    player->velocityY = -25;
+    player->onGround = false;
   }
-  else if(IsKeyDown(KEY_W)){
-    player->rec.y -= player->movementSpeed;
+
+  if (!player->onGround) {
+    player->velocityY += PLAYER_GRAVITY;
+  } 
+  else{
+    player->velocityY = 0;
   }
 
-  //if (IsKeyPressed(KEY_SPACE) && player->onGround) {
-  //  player->velocityY = -25;
-   // player->onGround = false;
-  //}
-
-  //if (!player->onGround) {
-   // player->velocityY += PLAYER_GRAVITY;
-  //} else {
-  //}
-
-  //player->rec.y += player->velocityY;
+  player->rec.y += player->velocityY;
 }
 
 void playerUpdate(Player *player, CollisionRecs collision) {
