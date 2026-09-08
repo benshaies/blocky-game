@@ -7,20 +7,15 @@
 #define TILE_SIZE 50
 #define COLLISION_TILES_NUM 2
 
-//Tile IDS
-#define EMPTY -1 
+// Tile IDS
+#define EMPTY -1
 #define GRASS 1
 #define DIRT 2
-
-
-
-
 
 typedef struct {
   Rectangle rec[6];
   bool isEmpty[6];
 } CollisionRecs;
-
 
 typedef struct {
   int value;
@@ -35,7 +30,7 @@ typedef struct {
 
 void worldVarInit();
 
-CollisionRecs currentGroundRec(World world, Rectangle playerRec);
+CollisionRecs getCurrentCollisionRecs(World world, Rectangle playerRec);
 
 World worldGenerate(int width, int height);
 
