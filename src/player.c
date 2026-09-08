@@ -8,6 +8,8 @@ void playerInit(Player *player) {
   player->movementSpeed = 4.0f;
   player->onGround = false;
   player->isJumping = false;
+
+  player->tileRange = 3;
 }
 
 void playerCollisions(Player *player, CollisionRecs collision) {
