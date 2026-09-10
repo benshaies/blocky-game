@@ -56,6 +56,14 @@ void playerCollisions(Player *player, CollisionRecs collision) {
   }
 }
 
+bool isTileWithinRange(Rectangle pRec,Vector2 mousePos){
+
+
+
+  
+  
+}
+
 float clamp(float value, float min, float max) {
   const float res = value < min ? min : value;
   return res > max ? max : res;

@@ -12,6 +12,12 @@
 #define GRASS 1
 #define DIRT 2
 
+
+typedef struct {
+  int x;
+  int y;
+} IVec2;
+
 typedef struct {
   Rectangle rec[6];
   bool isEmpty[6];
@@ -31,6 +37,8 @@ typedef struct {
 void worldVarInit();
 
 CollisionRecs getCurrentCollisionRecs(World world, Rectangle playerRec);
+
+void worldDeleteBlock(World *world, Vector2 mousePos);
 
 World worldGenerate(int width, int height);
 

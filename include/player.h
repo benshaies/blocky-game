@@ -20,10 +20,13 @@ typedef struct {
 
   // Interactions
   int tileRange;
+  Rectangle selectedTile;
 
 } Player;
 
 void playerInit(Player *player);
+
+bool isTileWithinRange(Rectangle pRec,Vector2 mousePos);
 
 void playerUpdate(Player *player, CollisionRecs collision);
 

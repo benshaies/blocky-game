@@ -3,10 +3,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct {
-  int x;
-  int y;
-} IVec2;
 
 IVec2 checkIndex[6];
 
@@ -57,6 +53,15 @@ CollisionRecs getCurrentCollisionRecs(World world, Rectangle playerRec) {
   }
   return rec;
 }
+void worldDeleteBlock(World *world, Vector2 mousePos){
+  int col = mousePos.x / TILE_SIZE;
+  int row = mousePos.y / TILE_SIZE;
+
+  printf("col: %d row:%d\n", col, row);
+  
+
+  world->tile[row][col].value = EMPTY;
+}
 
 World worldGenerate(int width, int height) {
 
@@ -88,6 +93,8 @@ World worldGenerate(int width, int height) {
 
   return world;
 }
+
+
 
 void worldFree(World *world) {
 

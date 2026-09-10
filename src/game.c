@@ -15,7 +15,11 @@ CollisionRecs pCollisionRecs;
 // World stuff
 Color skyColor = {102, 191, 255, 255};
 Rectangle tempGroundRec = {0, 570, 1280, 150};
-World tempWorld;
+World currentWorld;
+
+// Camera
+Camera2D cam;
+Vector2 worldMouse;
 
 void gameInit() {
   ChangeDirectory(TextFormat("%s/..", GetApplicationDirectory()));
@@ -27,35 +31,48 @@ void gameInit() {
   worldVarInit();
   playerInit(&player);
 
-  tempWorld = worldGenerate(GAME_WIDTH / TILE_SIZE, GAME_HEIGHT / TILE_SIZE);
+  cam.offset = (Vector2){GAME_WIDTH/2, GAME_HEIGHT/2};
+  cam.target.x = player.rec.x;
+  cam.zoom = 1.0f;
+
+  currentWorld = worldGenerate(50, 50);
 }
 
 void gameUpdate() {
 
   Rectangle groundRec = (Rectangle){0, 600, 2000, 100};
 
-  pCollisionRecs = getCurrentCollisionRecs(tempWorld, player.rec);
+  cam.target = (Vector2){player.rec.x, player.rec.y};
+  worldMouse = GetScreenToWorld2D(mousePos, cam);
+
+  pCollisionRecs = getCurrentCollisionRecs(currentWorld, player.rec);
 
   playerUpdate(&player, pCollisionRecs);
+
+  if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
+    
+    worldDeleteBlock(&currentWorld, worldMouse);
+  } 
 }
 
 void gameDraw() {
+  
+
   BeginTextureMode(target);
 
   ClearBackground(skyColor);
 
-  worldDraw(tempWorld);
+  BeginMode2D(cam);
+
+  worldDraw(currentWorld);
 
   playerDraw(&player);
 
-  // Draw Collision Tiles
-  for (int i = 0; i < 6; i++) {
-    if (!pCollisionRecs.isEmpty[i]) {
-      DrawRectangleRec(pCollisionRecs.rec[i], RED);
-    }
-  }
+  EndMode2D();
 
+  
   EndTextureMode();
+
 
   SB_GameResolution_Draw((Vector2){GAME_WIDTH, GAME_HEIGHT}, &target,
                          &mousePos);
