@@ -3,7 +3,7 @@
 #include <raylib.h>
 
 void playerInit(Player *player) {
-  player->rec = (Rectangle){500, 0, 50, 100};
+  player->rec = (Rectangle){500, 400, 50, 100};
 
   player->movementSpeed = 4.0f;
   player->onGround = false;
@@ -33,6 +33,7 @@ void playerCollisions(Player *player, CollisionRecs collision) {
         switch (i) {
         case 0: // Top collision
           player->rec.y += colRec.height;
+          player->velocityY = 0;
           break;
         case 1: // Right side
           player->rec.x -= colRec.width;
@@ -56,13 +57,7 @@ void playerCollisions(Player *player, CollisionRecs collision) {
   }
 }
 
-bool isTileWithinRange(Rectangle pRec,Vector2 mousePos){
-
-
-
-  
-  
-}
+bool isTileWithinRange(Rectangle pRec, Vector2 mousePos) {}
 
 float clamp(float value, float min, float max) {
   const float res = value < min ? min : value;

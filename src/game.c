@@ -31,7 +31,7 @@ void gameInit() {
   worldVarInit();
   playerInit(&player);
 
-  cam.offset = (Vector2){GAME_WIDTH/2, GAME_HEIGHT/2};
+  cam.offset = (Vector2){GAME_WIDTH / 2, GAME_HEIGHT / 2};
   cam.target.x = player.rec.x;
   cam.zoom = 1.0f;
 
@@ -49,14 +49,13 @@ void gameUpdate() {
 
   playerUpdate(&player, pCollisionRecs);
 
-  if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
-    
+  if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+
     worldDeleteBlock(&currentWorld, worldMouse);
-  } 
+  }
 }
 
 void gameDraw() {
-  
 
   BeginTextureMode(target);
 
@@ -70,9 +69,7 @@ void gameDraw() {
 
   EndMode2D();
 
-  
   EndTextureMode();
-
 
   SB_GameResolution_Draw((Vector2){GAME_WIDTH, GAME_HEIGHT}, &target,
                          &mousePos);
